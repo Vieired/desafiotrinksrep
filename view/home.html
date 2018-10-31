@@ -1,0 +1,140 @@
+<div ng-controller="IndexCtrl" class="container-fluid">
+    <section>
+        <header>
+            <h1 ng-bind="titulo" class="text-center text-sw"></h1>
+        </header>
+        <div class="row">
+            <div class="col-sm-10 offset-sm-1 col-lg-6 offset-lg-3">
+                <form class="form">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <input type="text" class="form-control bg-dark text-white" placeholder="{{ tipoSelecionado=='Filme' ? 'Busque um filme' : 'Busque filmes por personagem' }}" autofocus
+                                    ng-model="strBusca" ng-keyup="buscarResultados(strBusca)">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-control bg-dark text-white"
+                                ng-model="tipoSelecionado" 
+                                ng-change="mudarTipoBusca()">
+                                <option ng-repeat="tipo in tiposBusca">{{ tipo }}</option>
+                            </select>
+                        </div>                            
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col-sm-10 offset-sm-1 col-lg-6 offset-lg-3">
+                <div class="table-wrap">
+                    <table class="table text-white">
+                        <tr ng-repeat="resultado in resultados">    
+                            <td class="conteudo-fx">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p ng-bind="resultado.title"></p>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalDetalhes"
+                                                ng-click="preencherModal(resultado)">
+                                                Detalhes
+                                            </button>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="resultados.length > 0 && paginacao.total > 10 && tipoSelecionado==='Filme'">
+            <div class="col-sm-10 offset-sm-1 col-lg-6 offset-lg-3">
+                <div class="form-group text-center">
+                    <button ng-model="paginacao" class="btn btn-primary {{ paginacao.anterior===null ? 'disabled' : '' }}" ng-click="voltarPagina()">
+                            <i class="fas fa-angle-double-left puro"></i></button>                                
+                    <button ng-model="paginacao" class="btn btn-primary {{ paginacao.posterior===null ? 'disabled' : '' }}" ng-click="avancarPagina()">
+                        <i class="fas fa-angle-double-right puro"></i></button>
+                </div>
+            </div>
+        </div>                
+    </section>
+
+    <div class="modal fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content bg-dark text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">
+                    <i class="fas fa-film fa-2x"></i>&nbsp;&nbsp;{{ filme.title }}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="loader-modal" ng-if="loaderPersonagensModal"></div>
+                <div ng-if="!loaderPersonagensModal" class="conteudo-fx">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <p>Lançamento: {{ filme.release_date | date : "dd/MM/yyyy" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <p>Diretor: {{ filme.director }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <p>Sinopse: {{ filme.opening_crawl }}</p>
+                                    </div>
+                                </div>
+                            </div>                    
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <ul class="list-group">
+                                            <li class="list-group-item active">Personagens (três primeiros):</li>
+                                            <li class="list-group-item list-group-item-dark"
+                                                ng-repeat="persona in personagensFilme">
+                                                <div class="row">
+                                                    <div class="col-9">
+                                                        <div ng-bind="persona"></div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="text-center">
+                                                            <img class="rounded-circle" src="img/user.png" alt="{{ persona }}">
+                                                        </div>
+                                                    </div>                                            
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times"></i>Fechar
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>    
+    
+</div>

@@ -1,0 +1,89 @@
+body {
+    background-image: url(../img/bg_starsR-655c85e404d4.jpg);
+    background-size: 50%;
+}
+
+header {
+    height: 200px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background-color: #000;
+    border: solid #ffe919 2px;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+header > h1 {
+    align-self: center;
+}
+
+table td.td-filmes {
+    max-width: 50px;
+    overflow-x: hidden
+}
+
+.loader-modal {
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    background-image: url(../img/loading.gif);
+    background-size: 100%;
+    background-repeat: no-repeat;  
+}
+
+@keyframes efeito {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+.conteudo-fx {
+    animation-name: efeito;
+    animation-duration: 1.5s;    
+}
+
+.modal .img-teste {
+    background-image: url(../img/user.png);
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    background-repeat: no-repeat;     
+}
+
+.modal img.rounded-circle {
+    width: 50px;
+    height: 50px;
+}
+
+.text-sw {
+    color: #ffe919;
+    text-transform: uppercase;
+    font-family: Impact;
+    letter-spacing: 1px;
+    word-spacing: 10px;
+}
+
+.table-wrap {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 250px;
+}
+div.table-wrap::-webkit-scrollbar { width:6px; background:#000; }
+div.table-wrap::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+div.table-wrap::-webkit-scrollbar-thumb { border-radius:10px; background:#343a40; }
+
+div.modal {
+    background-color: #f8f9fa61;
+}
+
+i.fas:not(.puro) {
+    margin-right: 5px
+}
+
+.btn-primary.disabled, 
+.btn-primary:disabled {
+    pointer-events: none;
+}
+
